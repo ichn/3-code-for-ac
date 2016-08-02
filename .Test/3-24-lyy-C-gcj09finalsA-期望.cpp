@@ -1,0 +1,591 @@
+#include <cstdio>
+#include <cstring>
+#include <algorithm>
+#include <iostream>
+#include <cmath>
+#include <string>
+#include <vector>
+#include <map>
+#include <set>
+#include <queue>
+#include <climits>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+namespace my_useful_tools {
+#define rep(_i, _k, _j) for(int _i = _k; _i <= _j; ++_i)
+#define reu(_i, _k, _j) for(int _i = _k; _i <  _j; ++_i)
+#define red(_i, _k, _j) for(int _i = _k; _j <= _i; --_i)
+#define foreach(_i, _s) for(typeof(_s.begin()) _i = _s.begin(); _i != _s.end(); ++_i)
+#define pb push_back
+#define mp make_pair
+#define ipir pair<int, int>
+#define ivec vector<int>
+#define clr(t) memset(t, 0, sizeof t)
+#define pse(t, v) memset(t, v, sizeof t)
+#define brl puts("")
+#define file(x) freopen(#x".in", "r", stdin), freopen(#x".out", "w", stdout)
+#define file_hza freopen("input.txt", "r", stdin), freopen("output.txt", "w", stdout);
+#define file_gen(x) freopen(#x".in", "w", stdout);
+	const int INF = 0x3f3f3f3f;
+	typedef long long LL;
+	typedef double DB;
+	inline void pc(char c) { putchar(c); }
+	template<class T> inline T gcd(T a, T b) { return b == 0 ? a : gcd(b, a % b); }
+	template<class T> inline void W(T p) { if(p < 0) pc('-'), p = -p; if(p / 10 != 0) W(p / 10); pc('0' + p % 10); }
+	template<class T> inline void Wn(T p) { W(p), brl; } template<class T> inline void W(T a, T b) { W(a), pc(' '), W(b); }
+	template<class T> inline void Wn(T a, T b) { W(a), pc(' '), Wn(b); }
+	template<class T> inline void W(T a, T b, T c) { W(a), pc(' '), W(b), pc(' '), W(c); } 
+	inline char gchar() { char ret = getchar(); for(; ret == '\n' || ret == '\r' || ret == ' '; ret = getchar()); return ret; }
+	template<class T> inline void fr(T&ret) { char c = ' '; int flag = 1; for(c = getchar(); c != '-' && !('0' <= c && c <= '9'); c = getchar()); 
+		if(c == '-') flag = -1, ret = 0; else ret = c - '0'; for(c = getchar(); '0' <= c && c <= '9'; c = getchar()) ret = ret * 10 + c - '0';
+		ret = ret * flag;
+	}
+	inline int fr() { int x; fr(x); return x; }
+	template<class T> inline void fr(T&a, T&b) { fr(a), fr(b); } template<class T> inline void fr(T&a, T&b, T&c) { fr(a), fr(b), fr(c); }
+	template<class T> inline T fast_pow(T base, T index, T mod = 2147483647, T ret = 1) {
+		for(; index; index >>= 1, base = base * base % mod) if(index & 1) ret = ret * base % mod;
+		return ret;
+	}
+};
+using namespace my_useful_tools;
+
+/*
+//{
+// thxs ACRush!
+const int maxlength=200;
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+class big_int
+{
+	public:
+		int oper,length,a[maxlength];
+		big_int(int=0);
+		~big_int();
+		int max(int a,int b);
+		void check();
+		void operator=(big_int m);
+		void operator=(int m);
+		void operator=(char *s);
+		bool operator<(big_int m);
+		bool operator<=(big_int m);
+		bool operator>(big_int m);
+		bool operator>=(big_int m);
+		bool operator==(big_int m);
+		bool operator!=(big_int m);
+		big_int operator-();
+		big_int operator+(big_int m);
+		void operator+=(big_int m);
+		big_int operator-(big_int m);
+		void operator-=(big_int m);
+		big_int operator*(big_int m);
+		big_int operator*(int m);
+		void operator*=(big_int m);
+		void operator*=(int m);
+		big_int operator/(big_int m);
+		big_int operator/(int m);
+		void operator/=(big_int m);
+		void operator/=(int m);
+		big_int operator%(big_int m);
+		big_int operator%(int m);
+		void operator%=(big_int m);
+		void operator%=(int m);
+};
+big_int abs(big_int m);
+bool read(big_int &m);
+void write(big_int m);
+void swrite(char *s,big_int m);
+void writeln(big_int m);
+big_int sqr(big_int m);
+big_int sqrt(big_int m);
+big_int gcd(big_int a,big_int b);
+big_int lcm(big_int a,big_int b);
+
+int big_int::max(int a,int b)
+{
+	return (a>b)?a:b;
+}
+big_int::big_int(int v)
+{
+	(*this)=v;
+	this->check();
+}
+big_int::~big_int()
+{
+}
+void big_int::check()
+{
+	for (;length>0 && a[length]==0;length--);
+	if (length==0)
+		oper=1;
+}
+void big_int::operator=(big_int m)
+{
+	oper=m.oper;
+	length=m.length;
+	memcpy(a,m.a,maxlength*sizeof(int));
+	this->check();
+}
+void big_int::operator=(int m)
+{
+	oper=(m>0)?1:-1;
+	m=abs(m);
+	memset(a,0,maxlength*sizeof(int));
+	for (length=0;m>0;m=m/10000)
+		a[++length]=m%10000;
+	this->check();
+}
+void big_int::operator=(char *s)
+{
+	int i,L;
+	(*this)=0;
+	if (s[0]=='-' || s[0]=='+')
+	{
+		if (s[0]=='-')
+			oper=-1;
+		L=strlen(s);
+		for (i=0;i<L;i++)
+			s[i]=s[i+1];
+	}
+	L=strlen(s);
+	length=(L+3)/4;
+	for (i=0;i<L;i++)
+		a[(L-i+3)/4]=a[(L-i+3)/4]*10+(s[i]-48);
+	this->check();
+}
+bool big_int::operator<(big_int m)
+{
+	if (oper!=m.oper)
+		return oper<m.oper;
+	if (length!=m.length)
+		return oper*length<m.length*oper;
+	for (int i=length;i>=1;i--)
+		if (a[i]!=m.a[i])
+			return a[i]*oper<m.a[i]*oper;
+	return false;
+}
+bool big_int::operator<=(big_int m)
+{
+	return !(m<(*this));
+}
+bool big_int::operator>(big_int m)
+{
+	return m<(*this);
+}
+bool big_int::operator>=(big_int m)
+{
+	return !((*this)<m);
+}
+bool big_int::operator==(big_int m)
+{
+	return (!((*this)<m)) && (!(m<(*this)));
+}
+bool big_int::operator!=(big_int m)
+{
+	return ((*this)<m) || (m<(*this));
+}
+big_int big_int::operator-()
+{
+	big_int c=(*this);
+	c.oper=-c.oper;
+	c.check();
+	return c;
+}
+big_int abs(big_int m)
+{
+	big_int c=m;
+	c.oper=abs(c.oper);
+	c.check();
+	return c;
+}
+big_int big_int::operator+(big_int m)
+{
+	if (m.length==0)
+		return (*this);
+	if (length==0)
+		return m;
+	if (oper==m.oper)
+	{
+		big_int c;
+		c.oper=oper;
+		c.length=max(length,m.length)+1;
+		for (int i=1,temp=0;i<=c.length;i++)
+			c.a[i]=(temp=(temp/10000+a[i]+m.a[i]))%10000;
+		c.check();
+		return c;
+	}
+	return (*this)-(-m);
+}
+big_int big_int::operator-(big_int m)
+{
+	if (m.length==0)
+		return (*this);
+	if (length==0)
+		return (-m);
+	if (oper==m.oper)
+	{
+		big_int c;
+		if (abs(*this)>=abs(m))
+		{
+			c.oper=oper;
+			c.length=length;
+			for (int i=1,temp=0;i<=length;i++)
+				c.a[i]=((temp=(-int(temp<0)+a[i]-m.a[i]))+10000)%10000;
+			c.check();
+			return c;
+		}
+		return -(m-(*this));
+	}
+	return (*this)+(-m);
+}
+bool read(big_int &m)
+{
+	char s[maxlength*4+10];
+	if (scanf("%s", s)==-1) // notice
+		return false;
+	for (int i=0;s[i];i++)
+		if (!((s[i]>='0' && s[i]<='9') || ((s[i]=='+' || s[i]=='-') && i==0)))
+			return false;
+	m=s;
+	return true;
+}
+void swrite(char *s,big_int m)
+{
+	int L=0;
+	if (m.oper==-1)
+		s[L++]='-';
+	sprintf(s+L,"%d",m.a[m.length]);
+	for (;s[L]!=0;L++);
+	for (int i=m.length-1;i>=1;i--)
+	{
+		sprintf(s+L,"%04d",m.a[i]);
+		L+=4;
+	}
+	s[L]=0;
+}
+void write(big_int m)
+{
+	if (m.oper==-1)
+		printf("-");
+	printf("%d",m.a[m.length]);
+	for (int i=m.length-1;i>=1;i--)
+		printf("%04d",m.a[i]);
+}
+void writeln(big_int m)
+{
+	write(m);
+	printf("\n");
+}
+big_int big_int::operator*(big_int m)
+{
+	big_int c;
+	c.oper=oper*m.oper;
+	c.length=length+m.length;
+	for (int i=1;i<=m.length;i++)
+	{
+		int number=m.a[i],j,temp=0;
+		for (j=1;j<=length;j++)
+			c.a[i+j-1]+=number*a[j];
+		if (i%10==0 || i==m.length)
+			for (j=1;j<=c.length;j++)
+				c.a[j]=(temp=(temp/10000)+c.a[j])%10000;
+	}
+	c.check();
+	return c;
+}
+big_int big_int::operator*(int m)
+{
+	if (m<0)
+		return -((*this)*(-m));
+	if (m>100000)
+		return (*this)*big_int(m);
+	big_int c;
+	c.length=length+2;
+	c.oper=oper;
+	int t=0;
+	for (int i=1;i<=c.length;i++)
+		c.a[i]=(t=(t/10000+a[i]*m))%10000;
+	c.check();
+	return c;
+}
+big_int big_int::operator/(big_int m)
+{
+	if (m.length==0)
+	{
+		printf("Division by zero.\n");
+		exit(0);
+	}
+	if (abs(*this)<abs(m))
+		return 0;
+	big_int c,left;
+	c.oper=oper/m.oper;
+	m.oper=1;
+	c.length=length-m.length+1;
+	left.length=m.length-1;
+	memcpy(left.a+1,a+length-left.length+1,left.length*sizeof(int));
+	for (int i=c.length;i>=1;i--)
+	{
+		left=left*10000+a[i];
+		int head=0,tail=10000,mid;
+		while (head+1<tail)
+		{
+			mid=(head+tail)/2;
+			if (m*mid<=left)
+				head=mid;
+			else
+				tail=mid;
+		}
+		c.a[i]=head;
+		left-=m*head;
+	}
+	c.check();
+	return c;
+}
+big_int big_int::operator/(int m)
+{
+	if (m<0)
+		return -((*this)/(-m));
+	if (m>100000)
+		return (*this)/big_int(m);
+	big_int c;
+	c.oper=oper;
+	c.length=length;
+	int t=0;
+	for (int i=c.length;i>=1;i--)
+		c.a[i]=(t=(t%m*10000+a[i]))/m;
+	c.check();
+	return c;
+}
+big_int big_int::operator %(big_int m)
+{
+	return (*this)-((*this)/m)*m;
+}
+big_int big_int::operator%(int m)
+{
+	if (m<0)
+		return -((*this)%(-m));
+	if (m>100000)
+		return (*this)%big_int(m);
+	int t=0;
+	for (int i=length;i>=1;i--)
+		t=(t*10000+a[i])%m;
+	return t;
+}
+big_int sqr(big_int m)
+{
+	return m*m;
+}
+big_int sqrt(big_int m)
+{
+	if (m.oper<0 || m.length==0)
+		return 0;
+	big_int c,last,now,templast;
+	c.length=(m.length+1)/2;
+	c.a[c.length]=int(sqrt((double)m.a[c.length*2]*10000+m.a[c.length*2-1])+1e-6);
+	templast.length=c.length*2;
+	templast.a[c.length*2-1]=(c.a[c.length]*c.a[c.length])%10000;
+	templast.a[c.length*2]=(c.a[c.length]*c.a[c.length])/10000;
+	templast.check();
+	for (int i=c.length-1;i>=1;i--)
+	{
+		last=templast;
+		int head=0,tail=10000,mid,j,temp;
+		while (head+1<tail)
+		{
+			mid=(head+tail)/2;
+			now=last;
+			now.a[2*i-1]+=mid*mid;
+			for (j=i+1;j<=c.length;j++)
+				now.a[i+j-1]+=mid*c.a[j]*2;
+			now.length++;
+			for (j=2*i-1,temp=0;j<=now.length;j++)
+				now.a[j]=(temp=(temp/10000+now.a[j]))%10000;
+			now.check();
+			if (now<=m)
+			{
+				templast=now;
+				head=mid;
+			}
+			else
+				tail=mid;
+		}
+		c.a[i]=head;
+	}
+	c.check();
+	return c;
+}
+big_int gcd(big_int a,big_int b)
+{
+	return (b==0)?a:gcd(b,a%b);
+}
+big_int lcm(big_int a,big_int b)
+{
+	return a*b/gcd(a,b);
+}
+void big_int::operator+=(big_int m)
+{
+	(*this)=(*this)+m;
+}
+void big_int::operator-=(big_int m)
+{
+	(*this)=(*this)-m;
+}
+void big_int::operator*=(big_int m)
+{
+	(*this)=(*this)*m;
+}
+void big_int::operator/=(big_int m)
+{
+	(*this)=(*this)/m;
+}
+void big_int::operator%=(big_int m)
+{
+	(*this)=(*this)%m;
+}
+void big_int::operator*=(int m)
+{
+	(*this)=(*this)*m;
+}
+void big_int::operator/=(int m)
+{
+	(*this)=(*this)/m;
+}
+void big_int::operator%=(int m)
+{
+	(*this)=(*this)%m;
+}
+
+//}
+*/
+typedef LL big_int;
+#define write W
+#define writeln Wn
+const int maxn = 1e4 + 10;
+const int p_rng = 1e4;
+LL s[maxn], a[maxn], n, m, t, ts;
+
+/*
+struct frac {
+	big_int a, b;
+	void reg() {
+		big_int d = gcd(a, b);
+		a /= d, b /= d;
+	}
+	frac() {
+		a = 0, b = 1;
+	}
+	frac(big_int a, big_int b):a(a), b(b) {
+		reg();
+	}
+	void print() {
+		reg();
+		big_int k = a / b;
+		a -= k*b;
+		write(k);
+		putchar('+');
+		write(a);
+		putchar('/');
+		writeln(b);
+	}
+};
+frac operator + (frac x, frac y) {
+	frac z;
+	z.a = x.a*y.b + x.b*y.a;
+	z.b = x.b*y.b;
+	z.reg();
+	return z;
+}
+frac operator * (frac x, frac y) {
+	frac z;
+	z.a = x.a*y.a;
+	z.b = x.b*y.b;
+	z.reg();
+	return z;
+}
+*/
+struct _data {
+	LL x, y, z;
+	_data() {
+		x = y = z = 0LL;
+	}
+	_data(LL a, LL b) {
+		x = 0;
+		y = a+b/n;
+		z = b%n;
+	}
+};
+_data operator + (_data a, _data b) {
+	_data r;
+	LL t = a.z+b.z;
+	r.z = t%n;
+	t /= n;
+	t += a.y+b.y;
+	r.y = t%n;
+	t /= n;
+	t += a.x+b.x;
+	r.x = t;
+	return r;
+}
+_data operator * (_data a, LL b) {
+	_data r;
+	LL t = a.z*b;
+	r.z = t%n;
+	t /= n;
+	t += a.y*b;
+	r.y = t%n;
+	t /= n;
+	t += a.x*b;
+	r.x = t;
+	return r;
+}
+
+_data f[maxn];
+void solve() {
+	clr(s);
+	fr(n, m);
+	_data ans = _data(0, 0);
+	for (int i = 1; i <= p_rng; ++i)
+		f[i] = _data(0, 0);
+	rep(i, 1, m) {
+		clr(a);
+		fr(t);
+		++a[1];
+		rep(j, 2, t) {
+			++a[fr()];
+		}
+		LL tot = 0;
+		rep(j, 1, p_rng) {
+			tot += a[j];
+			f[j] = f[j] + _data(tot, 2LL*tot*s[j]);
+			s[j] += tot;
+		}
+	}
+	rep(i, 1, min(n, (LL)p_rng-1)) {
+		ans = ans + f[i];
+	}
+	if (n > p_rng-1) {
+		f[p_rng] = f[p_rng] * (LL)(n-p_rng+1);
+		ans = ans + f[p_rng];
+	}
+	LL x = ans.x, a = ans.y*n+ans.z, c = gcd(a, n*n);
+	printf("%lld+%lld/%lld\n", x, a/c, n*n/c);
+}
+
+int main() {
+	freopen("C.in", "r", stdin);
+	freopen("C.out", "w", stdout);
+	fr(ts);
+	rep(i, 1, ts) {
+#ifndef love_lhy
+		printf("Case #%d: ", i);
+#endif
+		solve();
+	}
+ 
+	return 0;
+}
+

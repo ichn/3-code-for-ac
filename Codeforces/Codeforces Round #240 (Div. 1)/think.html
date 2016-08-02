@@ -1,0 +1,917 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <style type="text/css">
+  table.header {
+  	font-family: verdana,arial,sans-serif;
+  	font-size:11px;
+  	color:#333333;
+  	border-width: 1px;
+  	border-color: #666666;
+  	border-collapse: collapse;
+  }
+  table.header th,tr {
+  	border-width: 1px;
+  	padding: 8px;
+  	border-style: solid;
+  	border-color: #666666;
+  	background-color: #dedede;
+  }
+  table.header td {
+  	border-width: 1px;
+  	padding: 8px;
+  	border-style: solid;
+  	border-color: #666666;
+  	background-color: #ffffff;
+  }
+  
+  
+  
+  @font-face {
+    font-family: octicons-anchor;
+    src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+  }
+  
+   {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    color: #333;
+    overflow: hidden;
+    font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    word-wrap: break-word;
+  }
+  
+   a {
+    background: transparent;
+  }
+  
+   a:active,
+   a:hover {
+    outline: 0;
+  }
+  
+   strong {
+    font-weight: bold;
+  }
+  
+   h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+  }
+  
+   img {
+    border: 0;
+  }
+  
+   hr {
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    height: 0;
+  }
+  
+   pre {
+    overflow: auto;
+  }
+  
+   code,
+   kbd,
+   pre {
+    font-family: monospace, monospace;
+    font-size: 1em;
+  }
+  
+   input {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+  }
+  
+   html input[disabled] {
+    cursor: default;
+  }
+  
+   input {
+    line-height: normal;
+  }
+  
+   input[type="checkbox"] {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+  }
+  
+   * {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+   input {
+    font: 13px/1.4 Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  
+   a {
+    color: #4183c4;
+    text-decoration: none;
+  }
+  
+   a:hover,
+   a:focus,
+   a:active {
+    text-decoration: underline;
+  }
+  
+   hr {
+    height: 0;
+    margin: 15px 0;
+    overflow: hidden;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+   hr:before {
+    display: table;
+    content: "";
+  }
+  
+   hr:after {
+    display: table;
+    clear: both;
+    content: "";
+  }
+  
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    line-height: 1.1;
+  }
+  
+   h1 {
+    font-size: 30px;
+  }
+  
+   h2 {
+    font-size: 21px;
+  }
+  
+   h3 {
+    font-size: 16px;
+  }
+  
+   h4 {
+    font-size: 14px;
+  }
+  
+   h5 {
+    font-size: 12px;
+  }
+  
+   h6 {
+    font-size: 11px;
+  }
+  
+   blockquote {
+    margin: 0;
+  }
+  
+   ul,
+   ol {
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+   ol ol,
+   ul ol {
+    list-style-type: lower-roman;
+  }
+  
+   ul ul ol,
+   ul ol ol,
+   ol ul ol,
+   ol ol ol {
+    list-style-type: lower-alpha;
+  }
+  
+   dd {
+    margin-left: 0;
+  }
+  
+   code {
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  }
+  
+   pre {
+    margin-top: 0;
+    margin-bottom: 0;
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  }
+  
+   .octicon {
+    font: normal normal 16px octicons-anchor;
+    line-height: 1;
+    display: inline-block;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+   .octicon-link:before {
+    content: '\f05c';
+  }
+  
+  >*:first-child {
+    margin-top: 0 !important;
+  }
+  
+  >*:last-child {
+    margin-bottom: 0 !important;
+  }
+  
+   .anchor {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    padding-right: 6px;
+    padding-left: 30px;
+    margin-left: -30px;
+  }
+  
+   .anchor:focus {
+    outline: none;
+  }
+  
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
+    position: relative;
+    margin-top: 1em;
+    margin-bottom: 16px;
+    font-weight: bold;
+    line-height: 1.4;
+  }
+  
+   h1 .octicon-link,
+   h2 .octicon-link,
+   h3 .octicon-link,
+   h4 .octicon-link,
+   h5 .octicon-link,
+   h6 .octicon-link {
+    display: none;
+    color: #000;
+    vertical-align: middle;
+  }
+  
+   h1:hover .anchor,
+   h2:hover .anchor,
+   h3:hover .anchor,
+   h4:hover .anchor,
+   h5:hover .anchor,
+   h6:hover .anchor {
+    padding-left: 8px;
+    margin-left: -30px;
+    line-height: 1;
+    text-decoration: none;
+  }
+  
+   h1:hover .anchor .octicon-link,
+   h2:hover .anchor .octicon-link,
+   h3:hover .anchor .octicon-link,
+   h4:hover .anchor .octicon-link,
+   h5:hover .anchor .octicon-link,
+   h6:hover .anchor .octicon-link {
+    display: inline-block;
+  }
+  
+   h1 {
+    padding-bottom: 0.3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+  }
+  
+   h2 {
+    padding-bottom: 0.3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+  }
+  
+   h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+  }
+  
+   h4 {
+    font-size: 1.25em;
+  }
+  
+   h5 {
+    font-size: 1em;
+  }
+  
+   h6 {
+    font-size: 1em;
+    color: #777;
+  }
+  
+   p,
+   blockquote,
+   ul,
+   ol,
+   dl,
+   table,
+   pre {
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  
+   hr {
+    height: 4px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+  }
+  
+   ul,
+   ol {
+    padding-left: 2em;
+  }
+  
+   ul ul,
+   ul ol,
+   ol ol,
+   ol ul {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  
+   li>p {
+    margin-top: 16px;
+  }
+  
+   dl {
+    padding: 0;
+  }
+  
+   dl dt {
+    padding: 0;
+    margin-top: 16px;
+    font-size: 1em;
+    font-style: italic;
+    font-weight: bold;
+  }
+  
+   dl dd {
+    padding: 0 16px;
+    margin-bottom: 16px;
+  }
+  
+   blockquote {
+    padding: 0 15px;
+    color: #777;
+    border-left: 4px solid #ddd;
+  }
+  
+   blockquote>:first-child {
+    margin-top: 0;
+  }
+  
+   blockquote>:last-child {
+    margin-bottom: 0;
+  }
+  
+   img {
+    max-width: 100%;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+   code {
+    padding: 0;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(0,0,0,0.04);
+    border-radius: 3px;
+  }
+  
+   code:before,
+   code:after {
+    letter-spacing: -0.2em;
+    content: "\00a0";
+  }
+  
+   pre>code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+  }
+  
+   .highlight {
+    margin-bottom: 16px;
+  }
+  
+   .highlight pre,
+   pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border-radius: 3px;
+  }
+  
+   .highlight pre {
+    margin-bottom: 0;
+    word-break: normal;
+  }
+  
+   pre {
+    word-wrap: normal;
+  }
+  
+   pre code {
+    display: inline;
+    max-width: initial;
+    padding: 0;
+    margin: 0;
+    overflow: initial;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0;
+  }
+  
+   pre code:before,
+   pre code:after {
+    content: normal;
+  }
+  
+   .pl-c {
+    color: #969896;
+  }
+  
+   .pl-c1,
+   .pl-mdh,
+   .pl-mm,
+   .pl-mp,
+   .pl-mr,
+   .pl-s1 .pl-v,
+   .pl-s3,
+   .pl-sc,
+   .pl-sv {
+    color: #0086b3;
+  }
+  
+   .pl-e,
+   .pl-en {
+    color: #795da3;
+  }
+  
+   .pl-s1 .pl-s2,
+   .pl-smi,
+   .pl-smp,
+   .pl-stj,
+   .pl-vo,
+   .pl-vpf {
+    color: #333;
+  }
+  
+   .pl-ent {
+    color: #63a35c;
+  }
+  
+   .pl-k,
+   .pl-s,
+   .pl-st {
+    color: #a71d5d;
+  }
+  
+   .pl-pds,
+   .pl-s1,
+   .pl-s1 .pl-pse .pl-s2,
+   .pl-sr,
+   .pl-sr .pl-cce,
+   .pl-sr .pl-sra,
+   .pl-sr .pl-sre,
+   .pl-src,
+   .pl-v {
+    color: #df5000;
+  }
+  
+   .pl-id {
+    color: #b52a1d;
+  }
+  
+   .pl-ii {
+    background-color: #b52a1d;
+    color: #f8f8f8;
+  }
+  
+   .pl-sr .pl-cce {
+    color: #63a35c;
+    font-weight: bold;
+  }
+  
+   .pl-ml {
+    color: #693a17;
+  }
+  
+   .pl-mh,
+   .pl-mh .pl-en,
+   .pl-ms {
+    color: #1d3e81;
+    font-weight: bold;
+  }
+  
+   .pl-mq {
+    color: #008080;
+  }
+  
+   .pl-mi {
+    color: #333;
+    font-style: italic;
+  }
+  
+   .pl-mb {
+    color: #333;
+    font-weight: bold;
+  }
+  
+   .pl-md,
+   .pl-mdhf {
+    background-color: #ffecec;
+    color: #bd2c00;
+  }
+  
+   .pl-mdht,
+   .pl-mi1 {
+    background-color: #eaffea;
+    color: #55a532;
+  }
+  
+   .pl-mdr {
+    color: #795da3;
+    font-weight: bold;
+  }
+  
+   .pl-mo {
+    color: #1d3e81;
+  }
+  
+   kbd {
+    background-color: #e7e7e7;
+    background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
+    background-image: linear-gradient(#fefefe, #e7e7e7);
+    background-repeat: repeat-x;
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    line-height: 10px;
+    color: #000;
+    border: 1px solid #cfcfcf;
+    border-radius: 2px;
+  }
+  
+   .task-list-item {
+    list-style-type: none;
+  }
+  
+   .task-list-item+.task-list-item {
+    margin-top: 3px;
+  }
+  
+   .task-list-item input {
+    float: left;
+    margin: 0.3em 0 0.25em -1.6em;
+    vertical-align: middle;
+  }
+  
+  </style>
+</head>
+<body>
+<div id="TOC">
+<ul>
+<li><a href="#codeforces-round-240-div.-1a.-mashmokh-and-numbers">【Codeforces Round #240 (Div. 1)】A. Mashmokh and Numbers</a></li>
+<li><a href="#codeforces-round-240-div.-1b.-mashmokh-and-acm">【Codeforces Round #240 (Div. 1)】B. Mashmokh and ACM</a></li>
+<li><a href="#codeforces-round-240-div.-1c.-mashmokh-and-reverse-operation">【Codeforces Round #240 (Div. 1)】C. Mashmokh and Reverse Operation</a></li>
+</ul>
+</div>
+<p>继续CF之旅， 专心搞CF吧。</p>
+<h2 id="codeforces-round-240-div.-1a.-mashmokh-and-numbers">【Codeforces Round #240 (Div. 1)】A. Mashmokh and Numbers</h2>
+<blockquote>
+<p>求<span class="math">\(n\)</span>个不同的数使得<span class="math">\[\sum_{i=2j,i+1\le n}gcd(a_i,a_{i+1})\]</span>等于给定的数</p>
+</blockquote>
+<p>利用<span class="math">\(gcd(i,i+1)=1\)</span>构造答案，注意特判边界情况。</p>
+<pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+namespace my_useful_tools {
+#define rep(_i, _k, _j) for(int _i = _k; _i &lt;= _j; ++_i)
+#define red(_i, _k, _j) for(int _i = _k; _j &lt;= _i; --_i)
+#define reu(_i, _k, _j) for(int _i = _k; _i &lt;  _j; ++_i)
+#define Edges(_i, _u, _e) for(int _i = _e.head[_u]; _i != -1; _i = _e.next[_i])
+#define foreach(_i, _s) for(typeof(_s.begin()) _i = _s.begin(); _i != _s.end(); ++_i)
+#define pb push_back
+#define mp make_pair
+#define ipir pair&lt;int, int&gt;
+#define ivec vector&lt;int&gt;
+#define clr(t) memset(t, 0, sizeof t)
+#define pse(t, v) memset(t, v, sizeof t)
+#define brl puts(&quot;&quot;)
+#define file(x) freopen(#x&quot;.in&quot;, &quot;r&quot;, stdin), freopen(#x&quot;.out&quot;, &quot;w&quot;, stdout)
+    const int INF = 0x3f3f3f3f;
+    typedef long long LL;
+    typedef double DB;
+    inline void pc(char c) { putchar(c); }
+    template&lt;class T&gt; inline T gcd(T a, T b) { return b == 0 ? a : gcd(b, a % b); }
+    template&lt;class T&gt; inline void W(T p) { if(p &lt; 0) pc(&#39;-&#39;), p = -p; if(p / 10 != 0) W(p / 10); pc(&#39;0&#39; + p % 10); }
+    template&lt;class T&gt; inline void Wn(T p) { W(p), brl; } template&lt;class T&gt; inline void W(T a, T b) { W(a), pc(&#39; &#39;), W(b); }
+    template&lt;class T&gt; inline void Wn(T a, T b) { W(a), pc(&#39; &#39;), Wn(b); }
+    template&lt;class T&gt; inline void W(T a, T b, T c) { W(a), pc(&#39; &#39;), W(b), pc(&#39; &#39;), W(c); } 
+    inline char gchar() { char ret = getchar(); for(; ret == &#39;\n&#39; || ret == &#39;\r&#39; || ret == &#39; &#39;; ret = getchar()); return ret; }
+    template&lt;class T&gt; inline void fr(T&amp;ret) { char c = &#39; &#39;; int flag = 1; for(c = getchar(); c != &#39;-&#39; &amp;&amp; !(&#39;0&#39; &lt;= c &amp;&amp; c &lt;= &#39;9&#39;); c = getchar()); 
+        if(c == &#39;-&#39;) flag = -1, ret = 0; else ret = c - &#39;0&#39;; for(c = getchar(); &#39;0&#39; &lt;= c &amp;&amp; c &lt;= &#39;9&#39;; c = getchar()) ret = ret * 10 + c - &#39;0&#39;;
+        ret = ret * flag;
+    }
+    inline int fr() { int x; fr(x); return x; }
+    template&lt;class T&gt; inline void fr(T&amp;a, T&amp;b) { fr(a), fr(b); } template&lt;class T&gt; inline void fr(T&amp;a, T&amp;b, T&amp;c) { fr(a), fr(b), fr(c); }
+    template&lt;class T&gt; inline T fast_pow(T base, T index, T mod = 2147483647, T ret = 1) {
+        for(; index; index &gt;&gt;= 1, base = base * base % mod) if(index &amp; 1) ret = ret * base % mod;
+        return ret;
+    }
+    const int maxv = 100, maxe = 100;
+    struct Edge {
+        int edge, head[maxv], to[maxe], next[maxe];
+        Edge() { edge = 0; memset(head, -1, sizeof head); }
+        void addedge(int u, int v) {
+            to[edge] = v, next[edge] = head[u];
+            head[u] = edge++;
+        }
+    };
+};
+using namespace my_useful_tools;
+
+int n, k;
+vector&lt;int&gt; out;
+map&lt;int, int&gt; s;
+bool check() {
+    foreach(i, out) {
+        if ((*i) &gt;= 1e9) {
+            return false;
+        }
+        if (s.count((*i))) {
+            return false;
+        }
+        ++s[(*i)];
+    }
+    return true;
+}
+int main() {
+#ifdef love_sbit
+    file(414A);
+#endif
+    fr(n, k);
+    if (n==1) {
+        if (k==0) {
+            puts(&quot;1&quot;);
+        } else puts(&quot;-1&quot;);
+    } else if (k==0) {
+        if (n==1) {
+            puts(&quot;1&quot;);
+        } else puts(&quot;-1&quot;);
+    } else if (n/2 &gt; k)
+        puts(&quot;-1&quot;);
+    else {
+        int j = n/2-1, top=(j)&lt;&lt;1|1;
+        for (int i=0; i&lt;j; ++i)
+            out.pb(i&lt;&lt;1|1), out.pb((i+1)&lt;&lt;1);
+        k -= j;
+        for (int i=1; i&lt;=n; ++i) 
+            if (i*k &gt;= top) {
+                out.pb(i*k), out.pb((i+1)*k);
+                break;
+            }
+        if (n&amp;1) {
+            out.pb(out.back()&lt;1e9 ? out.back()+1:out.back()-1);
+        }
+        if (!check()) {
+            puts(&quot;-1&quot;);
+        } else {
+            for(int i=0, sz=out.size(); i&lt;sz; ++i) {
+                printf(&quot;%d &quot;, out[i]);
+            }
+            puts(&quot;&quot;);
+        }
+    }
+
+    return 0;
+}</code></pre>
+<h2 id="codeforces-round-240-div.-1b.-mashmokh-and-acm">【Codeforces Round #240 (Div. 1)】B. Mashmokh and ACM</h2>
+<blockquote>
+<p>求<span class="math">\(n\)</span>长序列，满足<span class="math">\(b_i|b_{i+1},b_i\le k\)</span>的数量</p>
+</blockquote>
+<p>dp水</p>
+<pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+namespace my_useful_tools {
+#define rep(_i, _k, _j) for(int _i = _k; _i &lt;= _j; ++_i)
+#define red(_i, _k, _j) for(int _i = _k; _j &lt;= _i; --_i)
+#define reu(_i, _k, _j) for(int _i = _k; _i &lt;  _j; ++_i)
+#define Edges(_i, _u, _e) for(int _i = _e.head[_u]; _i != -1; _i = _e.next[_i])
+#define foreach(_i, _s) for(typeof(_s.begin()) _i = _s.begin(); _i != _s.end(); ++_i)
+#define pb push_back
+#define mp make_pair
+#define ipir pair&lt;int, int&gt;
+#define ivec vector&lt;int&gt;
+#define clr(t) memset(t, 0, sizeof t)
+#define pse(t, v) memset(t, v, sizeof t)
+#define brl puts(&quot;&quot;)
+#define file(x) freopen(#x&quot;.in&quot;, &quot;r&quot;, stdin), freopen(#x&quot;.out&quot;, &quot;w&quot;, stdout)
+    const int INF = 0x3f3f3f3f;
+    typedef long long LL;
+    typedef double DB;
+    inline void pc(char c) { putchar(c); }
+    template&lt;class T&gt; inline T gcd(T a, T b) { return b == 0 ? a : gcd(b, a % b); }
+    template&lt;class T&gt; inline void W(T p) { if(p &lt; 0) pc(&#39;-&#39;), p = -p; if(p / 10 != 0) W(p / 10); pc(&#39;0&#39; + p % 10); }
+    template&lt;class T&gt; inline void Wn(T p) { W(p), brl; } template&lt;class T&gt; inline void W(T a, T b) { W(a), pc(&#39; &#39;), W(b); }
+    template&lt;class T&gt; inline void Wn(T a, T b) { W(a), pc(&#39; &#39;), Wn(b); }
+    template&lt;class T&gt; inline void W(T a, T b, T c) { W(a), pc(&#39; &#39;), W(b), pc(&#39; &#39;), W(c); } 
+    inline char gchar() { char ret = getchar(); for(; ret == &#39;\n&#39; || ret == &#39;\r&#39; || ret == &#39; &#39;; ret = getchar()); return ret; }
+    template&lt;class T&gt; inline void fr(T&amp;ret) { char c = &#39; &#39;; int flag = 1; for(c = getchar(); c != &#39;-&#39; &amp;&amp; !(&#39;0&#39; &lt;= c &amp;&amp; c &lt;= &#39;9&#39;); c = getchar()); 
+        if(c == &#39;-&#39;) flag = -1, ret = 0; else ret = c - &#39;0&#39;; for(c = getchar(); &#39;0&#39; &lt;= c &amp;&amp; c &lt;= &#39;9&#39;; c = getchar()) ret = ret * 10 + c - &#39;0&#39;;
+        ret = ret * flag;
+    }
+    inline int fr() { int x; fr(x); return x; }
+    template&lt;class T&gt; inline void fr(T&amp;a, T&amp;b) { fr(a), fr(b); } template&lt;class T&gt; inline void fr(T&amp;a, T&amp;b, T&amp;c) { fr(a), fr(b), fr(c); }
+    template&lt;class T&gt; inline T fast_pow(T base, T index, T mod = 2147483647, T ret = 1) {
+        for(; index; index &gt;&gt;= 1, base = base * base % mod) if(index &amp; 1) ret = ret * base % mod;
+        return ret;
+    }
+    const int maxv = 100, maxe = 100;
+    struct Edge {
+        int edge, head[maxv], to[maxe], next[maxe];
+        Edge() { edge = 0; memset(head, -1, sizeof head); }
+        void addedge(int u, int v) {
+            to[edge] = v, next[edge] = head[u];
+            head[u] = edge++;
+        }
+    };
+};
+using namespace my_useful_tools;
+
+const int Mod = 1e9+7;
+const int maxn = 2000 + 10;
+int n, k;
+LL f[maxn][maxn];
+vector&lt;int&gt; fac[maxn];
+int main() {
+#ifdef love_sbit
+    file(414B);
+#endif
+    for (int i=1; i&lt;maxn; ++i)
+        for (int j=1; j&lt;=i; ++j)
+            if (i%j == 0)
+                fac[i].pb(j);
+    fr(n, k);
+    f[0][1]=1;
+    for (int i=1; i&lt;=k; ++i)
+        for (int j=1; j&lt;=n; ++j)
+            foreach(k, fac[j])
+                (f[i][j]+=f[i-1][*k])%=Mod;
+    LL ans=0;
+    for (int i=1; i&lt;=n; ++i)
+        (ans+=f[k][i])%=Mod;
+    Wn(ans);
+    return 0;
+}
+</code></pre>
+<h2 id="codeforces-round-240-div.-1c.-mashmokh-and-reverse-operation">【Codeforces Round #240 (Div. 1)】C. Mashmokh and Reverse Operation</h2>
+<blockquote>
+<p><span class="math">\(2^n\)</span>长序列，支持询问<span class="math">\(m\)</span>次把区间依次按<span class="math">\(2^{p_i}\)</span>分成<span class="math">\(2^{n-p_i}\)</span>个部分每个部分反转后依次插回的逆序对数量，每次操作保留影响</p>
+</blockquote>
+<p>我太弱了啊，不过相信经过磨砺之后一定可以笑傲HNTSC的！</p>
+<p>VP的时候想着想着就没控制住了，一个人在机房里想题就容易崩溃心里防线导致发生令自己后悔的事情，我要想办法啊。——冥想是个好办法，出去散散步是个好办法！</p>
+<p>回到这道题。有几个性质：逆序对只会在块内发生变化，对块外没有影响；全部反转</p>
+<p>于是想像一颗完全二叉树，叶子节点为权值，通过merge_sort可以求出每层的正反inverse_numbers数量，每次修改交换从叶子向上h每层的正反inverse_numbers就行了。没想到这点的原因是忽视了修改是全局性的。</p>
+<p>代码写起来非常漂亮。</p>
+<pre><code>#include &lt;bits/stdc++.h&gt;
+using namespace std;
+namespace my_useful_tools {
+#define rep(_i, _k, _j) for(int _i = _k; _i &lt;= _j; ++_i)
+#define red(_i, _k, _j) for(int _i = _k; _j &lt;= _i; --_i)
+#define reu(_i, _k, _j) for(int _i = _k; _i &lt;  _j; ++_i)
+#define Edges(_i, _u, _e) for(int _i = _e.head[_u]; _i != -1; _i = _e.next[_i])
+#define foreach(_i, _s) for(typeof(_s.begin()) _i = _s.begin(); _i != _s.end(); ++_i)
+#define pb push_back
+#define mp make_pair
+#define ipir pair&lt;int, int&gt;
+#define ivec vector&lt;int&gt;
+#define clr(t) memset(t, 0, sizeof t)
+#define pse(t, v) memset(t, v, sizeof t)
+#define brl puts(&quot;&quot;)
+#define file(x) freopen(#x&quot;.in&quot;, &quot;r&quot;, stdin), freopen(#x&quot;.out&quot;, &quot;w&quot;, stdout)
+    const int INF = 0x3f3f3f3f;
+    typedef long long LL;
+    typedef double DB;
+    inline void pc(char c) { putchar(c); }
+    template&lt;class T&gt; inline T gcd(T a, T b) { return b == 0 ? a : gcd(b, a % b); }
+    template&lt;class T&gt; inline void W(T p) { if(p &lt; 0) pc(&#39;-&#39;), p = -p; if(p / 10 != 0) W(p / 10); pc(&#39;0&#39; + p % 10); }
+    template&lt;class T&gt; inline void Wn(T p) { W(p), brl; } template&lt;class T&gt; inline void W(T a, T b) { W(a), pc(&#39; &#39;), W(b); }
+    template&lt;class T&gt; inline void Wn(T a, T b) { W(a), pc(&#39; &#39;), Wn(b); }
+    template&lt;class T&gt; inline void W(T a, T b, T c) { W(a), pc(&#39; &#39;), W(b), pc(&#39; &#39;), W(c); } 
+    inline char gchar() { char ret = getchar(); for(; ret == &#39;\n&#39; || ret == &#39;\r&#39; || ret == &#39; &#39;; ret = getchar()); return ret; }
+    template&lt;class T&gt; inline void fr(T&amp;ret) { char c = &#39; &#39;; int flag = 1; for(c = getchar(); c != &#39;-&#39; &amp;&amp; !(&#39;0&#39; &lt;= c &amp;&amp; c &lt;= &#39;9&#39;); c = getchar()); 
+        if(c == &#39;-&#39;) flag = -1, ret = 0; else ret = c - &#39;0&#39;; for(c = getchar(); &#39;0&#39; &lt;= c &amp;&amp; c &lt;= &#39;9&#39;; c = getchar()) ret = ret * 10 + c - &#39;0&#39;;
+        ret = ret * flag;
+    }
+    inline int fr() { int x; fr(x); return x; }
+    template&lt;class T&gt; inline void fr(T&amp;a, T&amp;b) { fr(a), fr(b); } template&lt;class T&gt; inline void fr(T&amp;a, T&amp;b, T&amp;c) { fr(a), fr(b), fr(c); }
+    template&lt;class T&gt; inline T fast_pow(T base, T index, T mod = 2147483647, T ret = 1) {
+        for(; index; index &gt;&gt;= 1, base = base * base % mod) if(index &amp; 1) ret = ret * base % mod;
+        return ret;
+    }
+    const int maxv = 100, maxe = 100;
+    struct Edge {
+        int edge, head[maxv], to[maxe], next[maxe];
+        Edge() { edge = 0; memset(head, -1, sizeof head); }
+        void addedge(int u, int v) {
+            to[edge] = v, next[edge] = head[u];
+            head[u] = edge++;
+        }
+    };
+};
+using namespace my_useful_tools;
+
+const int maxn = 20 + 1;
+int status[maxn], n;
+LL num[maxn][2];
+vector&lt;int&gt; build(int n) {
+    if (n==0) {
+        return vector&lt;int&gt;(1, fr());
+    } else {
+        vector&lt;int&gt; l=build(n-1), r=build(n-1);
+        for (int x=0; x&lt;2; swap(l, r), ++x) {
+            for (int i=0, j=0; i&lt;(1&lt;&lt;(n-1)); ++i) {
+                while (j&lt;(1&lt;&lt;(n-1)) &amp;&amp; l[i] &gt; r[j])
+                    ++j;
+                num[n-1][x] += j;
+            }
+        }
+        vector&lt;int&gt; ret(1&lt;&lt;n);
+        merge(l.begin(), l.end(), r.begin(), r.end(), ret.begin());
+        return ret;
+    }
+}
+
+
+int main() {
+#ifdef love_sbit
+    file(414C);
+#endif
+    
+    build(n = fr());
+    for (int m=fr(), q; m--; ) {
+        fr(q);
+        for (int j=0; j&lt;q; ++j)
+            status[j] ^= 1;
+        LL res = 0;
+        for (int j=0; j&lt;n; ++j)
+            res += num[j][status[j]];
+        Wn(res);
+    }
+
+    return 0;
+}
+
+</code></pre>
+</body>
+</html>

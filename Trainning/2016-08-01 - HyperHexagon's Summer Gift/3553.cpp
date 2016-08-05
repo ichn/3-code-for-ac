@@ -79,32 +79,47 @@ int sum[maxN];
 int al, ar;
 
 int get(int l, int r, int sub) {
-	if (r <= l) return 0;
-	return sum[r-1] - (l == 0 ? 0 : sum[l-1]) - (r - l) * sub;
+	if (r < l) return 0;
+	return sum[r] - (l == 0 ? 0 : sum[l-1]) - (r - l + 1) * sub;
 }
 
 void solve(int u, int l, int r, int k, int sub = 0) {
+	if (r < l) {
+		assert(false);
+		return ;
+	}
+	if (l == r) {
+		al = sa[l], ar = sa[l] + sub + k;
+		return ;
+	}
 	h[u] -= sub;
 	if (h[u] != 0) {
-		if ((r - l) * h[u] >= k) {
-			al = ar = sa[u];
-			while (k >= 0) {
-				k -= r - l;
+		if ((r - l + 1) * h[u] >= k) {
+			al = sa[l];
+			ar = al + sub;
+			while (k > 0) {
+				k -= r - l + 1;
 				++ar;
 			}
 			return ;
 		} else {
-			k -= (r - l) * h[u];
+			k -= (r - l + 1) * h[u];
 			sub += h[u];
 			h[u] = 0;
 		}
 	}
-	int t = get(l, u, sub);
-	if (t < k) {
-		k -= t;
-		solve(ch[u][1], u+1, r, k, sub);
+
+	int t = get(l, u-1, sub);
+	printf("%d %d %d\n", l, u, t);
+	if (k <= t) {
+		solve(ch[u][0], l, u-1, k, sub);
 	} else {
-		solve(ch[u][0], l, u, k, sub);
+		k -= t;
+		if (sa[u] + sub + k < n) {
+			al = sa[u], ar = sa[u] + sub + k;
+			return ;
+		}
+		solve(ch[u][1], u+1, r, k - get(u, u, sub), sub);
 	}
 }
 
@@ -125,27 +140,25 @@ int main() {
 		get_sa(200);
 		--n;
 		s[n] = '\0';
-
-
 		tp = 0;
 		memset(ch, 0, sizeof ch);
+		puts("sa :");
 		for (int i = 0; i < n; ++i)
 			printf("%d ", sa[i]);
 		puts("");
 		sum[0] = n - sa[0];
 		for (int i = 1; i < n; ++i)
-			sum[i] += sum[i - 1] + n - sa[i];
+			sum[i] = sum[i - 1] + n - sa[i];
 		for (int i = 1; i < n; ++i) {
 			while (tp > 0 && h[i] < h[stk[tp]]) {
 				ch[stk[tp]][1] = 0;
 				ch[i][0] = stk[tp];
 				--tp;
-				ch[tp][1] = i;
 			}
 			ch[stk[tp]][1] = i;
 			stk[++tp] = i;
 		}
-		solve(ch[0][1], 1, n - 1, k);
+		solve(ch[0][1], 0, n - 1, k);
 
         printf("Case %d: ", tt);
 		for (int j = al; j < ar; ++j)

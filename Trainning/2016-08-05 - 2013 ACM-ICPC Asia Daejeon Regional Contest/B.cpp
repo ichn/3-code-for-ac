@@ -27,7 +27,6 @@ void calc(int a, int b) {
 	calc(A, b);
 	calc(A, B-(A-a)%B);
 	calc(A-(B-b)%A, B);
-
 }
 
 int main() {

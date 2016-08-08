@@ -1,47 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define x first
+#define y second
+
 int gcd(int a, int b) {
 	return a == 0 ? b : gcd(b, a%b);
 }
 
-set<pair<int ,int> > ss;
 
-int A, B;
+int A, B, x, y, n, d;
+vector<pair<int, int > > O;
 void calc(int a, int b) {
-	if (ss.find(make_pair(a, b)) != ss.end())
-		return ;
-	ss.insert(make_pair(a, b));
-	//printf("%d %d\n", a, b);
-	calc((a+b)%A, 0);
-	calc(0, (a+b)%B);
-	calc(0, 0);
-	calc(a, 0);
-	calc(0, b);
-	calc(0, B-(A-a)%B);
-	calc(A-(B-b)%A, 0);
-	calc((a+b)%A, B);
-	calc(A, (a+b)%B);
-	calc(A, B);
-	calc(a, B);
-	calc(A, b);
-	calc(A, B-(A-a)%B);
-	calc(A-(B-b)%A, B);
 }
+
+int f[2][7];
 
 int main() {
 #ifdef lol
 	freopen("B.in", "r", stdin);
 	freopen("B2.out", "w", stdout);
 #endif
+	int T = fr();
+	while (T--) {
+		fr(n, A, B), fr(x, y);
+		O.resize(n+1);
+		O[0].x = x;
+		O[0].y = y;
+		d = gcd(A, B);
+		for (int i = 1; i < n; ++i) {
+			fr(O[i].x, O[i].y);
+		}
+		int c = 0, l = 1;
+		for (int i = 0; i < n; ++i) {
+			memset(f[c], 0, sizeof f[c]);
+			f[c][0] = f[l][0] + chk(i, 0)
 
-	ss.clear();
-
-	A = 25, B = 250;
-	calc(11, 0);
-	for (set<pair<int, int> >::iterator pp = ss.begin(); pp != ss.end(); ++pp) {
-		printf("%d %d\n", pp->first, pp->second);
+		}
 	}
+
+
 
 	return 0;
 }

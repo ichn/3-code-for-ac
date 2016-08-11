@@ -12,6 +12,7 @@ int gcd(int a, int b) {
 int A, B, x, y, n, d;
 vector<pair<int, int > > O;
 void calc(int a, int b) {
+
 }
 
 int f[2][7];
@@ -19,7 +20,7 @@ int f[2][7];
 int main() {
 #ifdef lol
 	freopen("B.in", "r", stdin);
-	freopen("B2.out", "w", stdout);
+	freopen("B.out", "w", stdout);
 #endif
 	int T = fr();
 	while (T--) {
@@ -35,11 +36,7 @@ int main() {
 		for (int i = 0; i < n; ++i) {
 			memset(f[c], 0, sizeof f[c]);
 			f[c][0] = f[l][0] + chk(i, 0)
-
 		}
 	}
-
-
-
 	return 0;
 }
